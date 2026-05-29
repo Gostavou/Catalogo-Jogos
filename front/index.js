@@ -115,16 +115,24 @@ function montarCards(lista) {
 
         const card = template.content.cloneNode(true);
 
-        card.querySelector(".capa-jogo").src = item.capa;
+        // 🔥 CORREÇÃO DEFINITIVA DA IMAGEM
+        let capa = item.capa;
+
+        if (capa) {
+            capa = capa.replace("../", "");
+            capa = capa.replace("\\", "/");
+
+            if (!capa.startsWith("img/")) {
+                capa = "img/" + capa.split("/").pop();
+            }
+
+            card.querySelector(".capa-jogo").src = capa;
+        }
 
         card.querySelector(".nome").textContent = item.nome;
-
         card.querySelector(".dev span").textContent = item.desenvolvedora;
-
         card.querySelector(".nota span").textContent = item.nota;
-
         card.querySelector(".plataforma span").textContent = item.plataforma;
-
         card.querySelector(".status span").textContent = item.status_jogo;
 
         const generosArea = card.querySelector(".generos-area");

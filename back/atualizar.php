@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nota = floatval($_POST['nota']);
     $plataforma = $_POST['plataforma'];
     $status_jogo = $_POST['status_jogo'];
-    $capa = $_POST['capa'];
 
     if (
         $id == "" ||
@@ -19,15 +18,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $desenvolvedora == "" ||
         $genero == "" ||
         $plataforma == "" ||
-        $status_jogo == "" ||
-        $capa == ""
+        $status_jogo == ""
     ) {
-        die("Preencha todos os campos");
+
+        echo "<script>
+        alert('Preencha todos os campos');
+        window.history.back();
+        </script>";
+        exit;
     }
 
     if (!is_numeric($nota) || $nota < 0 || $nota > 5) {
-        die("Nota inválida (0 a 5)");
+
+        echo "<script>
+        alert('Nota inválida (0 a 5)');
+        window.history.back();
+        </script>";
+        exit;
     }
+
+    $sqlImagem = "";
+    $tipos = "sssdssi";
+    $valores = [
+        $nome,
+        $desenvolvedora,
+        $genero,
+        $nota,
+        $plataforma,
+        $status_jogo
+    ];
+
+    if (
+        isset($_FILES['capa']) &&
+        $_FILES['capa']['error'] == 0
+    ) {
+
+        $nomeImagem = time() . "_" . $_FILES['capa']['name'];
+
+        $caminhoImagem = "../img/" . $nomeImagem;
+
+        move_uploaded_file(
+            $_FILES['capa']['tmp_name'],
+            $caminhoImagem
+        );
+
+        $sqlImagem = ", capa=?";
+
+        $tipos = "sssdsssi";
+
+        $valores[] = $caminhoImagem;
+    }
+
+    $valores[] = $id;
 
     $sql = "UPDATE jogos SET
         nome=?,
@@ -35,28 +77,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         genero=?,
         nota=?,
         plataforma=?,
-        status_jogo=?,
-        capa=?
+        status_jogo=?
+        $sqlImagem
         WHERE id=?";
 
     $stmt = $conn->prepare($sql);
 
     $stmt->bind_param(
-        "sssdsssi",
-        $nome,
-        $desenvolvedora,
-        $genero,
-        $nota,
-        $plataforma,
-        $status_jogo,
-        $capa,
-        $id
+        $tipos,
+        ...$valores
     );
 
     if ($stmt->execute()) {
+
         header("Location: ../index.html");
+
     } else {
+
         echo "Erro: " . $stmt->error;
+
     }
 
     $stmt->close();

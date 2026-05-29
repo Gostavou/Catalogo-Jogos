@@ -13,9 +13,6 @@ parametroDaUrl.get("desenvolvedora");
 document.getElementById("notaAtualizar").value =
 parametroDaUrl.get("nota");
 
-document.getElementById("capaAtualizar").value =
-parametroDaUrl.get("capa");
-
 document.getElementById("statusAtualizar").value =
 parametroDaUrl.get("status_jogo");
 
@@ -63,7 +60,9 @@ const generosPadrao = [
 ];
 
 const generoParametro =
-parametroDaUrl.get("genero") || "";
+decodeURIComponent(
+    parametroDaUrl.get("genero") || ""
+);
 
 const generosSalvos =
 generoParametro
@@ -72,8 +71,10 @@ generoParametro
 .filter(g => g !== "");
 
 function atualizarGeneroFinal() {
+
     generoFinal.value =
     generosSelecionados.join(",");
+
 }
 
 function criarChip(
@@ -165,7 +166,9 @@ generosPadrao.forEach(genero => {
     generosSalvos.includes(genero);
 
     if (selecionado) {
+
         generosSelecionados.push(genero);
+
     }
 
     criarChip(
@@ -192,6 +195,8 @@ generosSalvos.forEach(genero => {
 
 });
 
+atualizarGeneroFinal();
+
 btnAdicionarGenero.addEventListener("click", function () {
 
     const valor =
@@ -200,8 +205,13 @@ btnAdicionarGenero.addEventListener("click", function () {
     if (valor === "") return;
 
     if (valor.length > 30) {
-        alert("O gênero pode ter no máximo 30 caracteres.");
+
+        alert(
+            "O gênero pode ter no máximo 30 caracteres."
+        );
+
         return;
+
     }
 
     const existe =
@@ -210,8 +220,11 @@ btnAdicionarGenero.addEventListener("click", function () {
     );
 
     if (existe) {
+
         alert("Esse gênero já existe.");
+
         return;
+
     }
 
     generosSelecionados.push(valor);
@@ -225,6 +238,7 @@ btnAdicionarGenero.addEventListener("click", function () {
     atualizarGeneroFinal();
 
     novoGenero.value = "";
+
 });
 
 const plataformaSalva =
@@ -260,11 +274,15 @@ if (
 plataformaSelect.addEventListener("change", function () {
 
     if (this.value === "Outro") {
+
         outraPlataformaGroup.style.display =
         "flex";
+
     } else {
+
         outraPlataformaGroup.style.display =
         "none";
+
     }
 
 });
@@ -281,9 +299,6 @@ document
 
     const nota =
     document.getElementById("notaAtualizar").value.trim();
-
-    const capa =
-    document.getElementById("capaAtualizar").value.trim();
 
     if (
         plataformaSelect.value === "Outro"
@@ -305,12 +320,12 @@ document
         nome === "" ||
         desenvolvedora === "" ||
         nota === "" ||
-        capa === "" ||
         generoFinal.value === "" ||
         plataformaFinal.value === ""
     ) {
 
         event.preventDefault();
+
         alert("Preencha todos os campos.");
 
     }

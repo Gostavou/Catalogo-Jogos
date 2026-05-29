@@ -10,21 +10,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nota = floatval($_POST['nota']);
     $plataforma = $_POST['plataforma'];
     $status_jogo = $_POST['status_jogo'];
-    $capa = $_POST['capa'];
+
+    if (
+        !isset($_FILES['capa']) ||
+        $_FILES['capa']['error'] != 0
+    ) {
+
+        echo "<script>
+        alert('Selecione uma imagem');
+        window.history.back();
+        </script>";
+        exit;
+    }
+
+    $nomeImagem = time() . "_" . $_FILES['capa']['name'];
+
+    $caminhoImagem = "../img/" . $nomeImagem;
+
+    move_uploaded_file(
+        $_FILES['capa']['tmp_name'],
+        $caminhoImagem
+    );
 
     if (
         $nome == "" ||
         $desenvolvedora == "" ||
         $genero == "" ||
         $plataforma == "" ||
-        $status_jogo == "" ||
-        $capa == ""
+        $status_jogo == ""
     ) {
-        die("Preencha todos os campos");
+
+        echo "<script>
+        alert('Preencha todos os campos');
+        window.history.back();
+        </script>";
+        exit;
     }
 
     if (!is_numeric($nota) || $nota < 0 || $nota > 5) {
-        die("Nota inválida (0 a 5)");
+
+        echo "<script>
+        alert('Nota inválida (0 a 5)');
+        window.history.back();
+        </script>";
+        exit;
     }
 
     $sql = "INSERT INTO jogos
@@ -49,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nota,
         $plataforma,
         $status_jogo,
-        $capa
+        $caminhoImagem
     );
 
     if ($stmt->execute()) {

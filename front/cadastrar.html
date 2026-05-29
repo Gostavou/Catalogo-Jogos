@@ -12,7 +12,7 @@
 
         <h2>Cadastrar novo jogo</h2>
 
-        <form id="formCadastro" action="../back/cadastro.php" method="POST">
+        <form id="formCadastro" action="../back/cadastro.php" method="POST" enctype="multipart/form-data">
 
             <div class="input-group">
 
@@ -150,13 +150,13 @@
 
             <div class="input-group">
 
-                <label>URL da capa:</label>
+                <label>Capa do jogo:</label>
 
                 <input
-                    type="text"
+                    type="file"
                     name="capa"
                     id="capa"
-                    placeholder="https://site.com/capa.jpg"
+                    accept="image/*"
                 >
 
             </div>
