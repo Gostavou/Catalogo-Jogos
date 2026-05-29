@@ -1,19 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Catálogo de Jogos</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="controles">
-        <button onclick="window.location.href = 'front/cadastrar.html'">cadastrar novo
 
+<header class="topbar">
+
+    <div class="topbar-left">
+        <button onclick="window.location.href='front/cadastrar.html'">
+            Cadastrar jogo
         </button>
-        <input type="text" id="campoFiltro" placeholder="Filtrar por nome...">
     </div>
 
-    <div id="containerCards"></div>
-    <script src="front/index.js"></script>
+    <div class="filters">
+
+        <div class="filter-group">
+            <label>Buscar</label>
+            <input type="text" id="campoFiltro" placeholder="Nome do jogo...">
+        </div>
+
+        <div class="filter-group">
+            <label>Nota</label>
+            <select id="filtroNota">
+                <option value="">Todas</option>
+                <option value="0-1">0 - 1</option>
+                <option value="1-2">1 - 2</option>
+                <option value="2-3">2 - 3</option>
+                <option value="3-4">3 - 4</option>
+                <option value="4-5">4 - 5</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Status</label>
+            <select id="filtroStatus">
+                <option value="">Todos</option>
+                <option value="Jogando">Jogando</option>
+                <option value="Joguei">Joguei</option>
+                <option value="Backlogged">Backlogged</option>
+                <option value="Wishlist">Wishlist</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Plataforma</label>
+            <select id="filtroPlataforma">
+                <option value="">Todas</option>
+                <option value="PC">PC</option>
+                <option value="PlayStation">PlayStation</option>
+                <option value="Xbox">Xbox</option>
+                <option value="Nintendo">Nintendo</option>
+                <option value="Outros">Outros</option>
+            </select>
+        </div>
+
+    </div>
+
+</header>
+
+<div id="containerCards"></div>
+
+<!-- TEMPLATE DO CARD -->
+<template id="cardTemplate">
+    <div class="card">
+
+        <img class="capa-jogo">
+
+        <h2 class="nome"></h2>
+
+        <div class="generos-area"></div>
+
+        <p class="dev">
+            <strong>Desenvolvedora:</strong>
+            <span></span>
+        </p>
+
+        <p class="nota">
+            <strong>Nota:</strong> ⭐ <span></span>
+        </p>
+
+        <p class="plataforma">
+            <strong>Plataforma:</strong>
+            <span></span>
+        </p>
+
+        <p class="status">
+            <strong>Status:</strong>
+            <span></span>
+        </p>
+
+        <div class="btn-acoes"></div>
+
+    </div>
+</template>
+
+<script src="front/index.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,356 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Motiva Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #1e222b;
+    color: #ffffff;
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+.topbar {
+    background: linear-gradient(135deg, #15181f, #10131a);
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+    margin-bottom: 40px;
+    border-bottom: 1px solid #252a36;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.topbar-left button {
+    background: linear-gradient(135deg, #47b230 0%, #5c7e10 100%);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    display: inline-flex;
+    align-items: center;
+}
+
+.topbar-left button:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-group label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #8f98a0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.filter-group input[type="text"] {
+    background-color: #222733;
+    color: #fff;
+    border: 1px solid #2d3444;
+    border-radius: 6px;
+    padding: 10px 14px;
+    width: 220px;
+    outline: none;
+    transition: all 0.2s;
+    font-size: 13px;
+}
+
+.filter-group input[type="text"]:focus {
+    border-color: #66c0f4;
+    background-color: #272d3b;
+    box-shadow: 0 0 8px rgba(102, 192, 244, 0.3);
+}
+
+.filter-group select {
+    background-color: #222733;
+    color: #fff;
+    border: 1px solid #2d3444;
+    border-radius: 6px;
+    padding: 10px 12px;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s;
+    font-size: 13px;
+    min-width: 130px;
+}
+
+.filter-group select:hover {
+    border-color: #4a546e;
+}
+
+.filter-group select:focus {
+    border-color: #66c0f4;
+    background-color: #272d3b;
+    box-shadow: 0 0 8px rgba(102, 192, 244, 0.3);
+}
+
+#containerCards {
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background-color: #162231;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s;
+    aspect-ratio: 28 / 40;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+}
+
+.card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8);
+    outline: 2px solid #66c0f4;
+}
+
+.capa-jogo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: filter 0.3s ease;
+}
+
+.card:hover .capa-jogo {
+    filter: blur(3px) brightness(0.3);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    z-index: 2;
+    transition: opacity 0.3s;
+}
+
+.card h2, .card p {
+    position: relative;
+    z-index: 3;
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease;
+}
+
+.card h2 {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 2px 0 rgb(0, 0, 0);
+    opacity: 0;
+}
+
+.card p {
+    font-size: 12px;
+    color: #c7d5e0;
+    margin-bottom: 5px;
+    opacity: 0;
+    transform: translateY(25px);
+}
+
+.card p strong {
+    color: #8f98a0;
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-right: 5px;
+}
+
+.card p:last-of-type {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: fit-content;
+    margin-top: 5px;
+}
+
+.card:hover h2 {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.card:hover p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-acoes {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    z-index: 4;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-acoes button {
+    flex: 1;
+    max-width: 110px;
+    padding: 6px 0;
+    font-size: 11px;
+    font-weight: bold;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.btn-acoes button:first-child {
+    background-color: #214b6b;
+    color: #67c1f5;
+    border: 1px solid rgba(103, 193, 245, 0.3);
+}
+
+.btn-acoes button:first-child:hover {
+    background-color: #316894;
+    color: #fff;
+}
+
+.btn-acoes button:last-child {
+    background-color: #2d353c;
+    color: #fff;
+}
+
+.btn-acoes button:last-child:hover {
+    background-color: #a34c39;
+}
+
+.card:hover .btn-acoes {
+    transform: translateY(60px);
+}
+
+.generos-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 3;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: 0.3s;
+}
+
+.card:hover .generos-area {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.genero-chip {
+    background: rgba(102, 192, 244, 0.15);
+    border: 1px solid rgba(102, 192, 244, 0.4);
+    color: #66c0f4;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: bold;
+    backdrop-filter: blur(5px);
+}
+
+.genero-chip.more {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #c7d5e0;
+}
+
+.card .nota {
+    color: #ffc800;
+}
+
+.card .plataforma {
+    color: #c7d5e0;
+}
+.empty-state {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 90px 20px;
+    text-align: center;
+    color: #c7d5e0;
+    animation: fadeIn 0.4s ease;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.6;
+    color: #8f98a0;
+}
+
+.empty-state h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.empty-state p {
+    font-size: 13px;
+    color: #8f98a0;
+    margin-bottom: 18px;
+}
+
+.empty-state button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    background: linear-gradient(135deg, #47b230 0%, #5c7e10 100%);
+    color: white;
+    transition: 0.2s;
+}

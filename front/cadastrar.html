@@ -1,31 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastrar Jogo</title>
+    <link rel="stylesheet" href="../css/cadastrar.css">
 </head>
 <body>
+
     <div class="form-container">
-        <h2>Cadastrar novo usuario</h2>
+
+        <h2>Cadastrar novo jogo</h2>
+
         <form id="formCadastro" action="../back/cadastro.php" method="POST">
+
             <div class="input-group">
-                <label>Nome:</label>
-                <input type="text" name="nome" id="nome">
+
+                <label>Nome do jogo:</label>
+
+                <input
+                    type="text"
+                    name="nome"
+                    id="nome"
+                    placeholder="Ex: Elden Ring"
+                >
+
             </div>
+
             <div class="input-group">
-                <label>Email:</label>
-                <input type="email" name="email" id="email">
+
+                <label>Desenvolvedora:</label>
+
+                <input
+                    type="text"
+                    name="desenvolvedora"
+                    id="desenvolvedora"
+                    placeholder="Ex: FromSoftware"
+                >
+
             </div>
+
+            <div class="input-group">
+
+                <label>Gêneros:</label>
+
+                <div class="chips-container" id="chipsContainer">
+
+                    <div class="chip">Ação</div>
+                    <div class="chip">RPG</div>
+                    <div class="chip">Aventura</div>
+                    <div class="chip">Terror</div>
+                    <div class="chip">Survival</div>
+                    <div class="chip">FPS</div>
+                    <div class="chip">Mundo Aberto</div>
+                    <div class="chip">Puzzle</div>
+                    <div class="chip">Corrida</div>
+                    <div class="chip">Luta</div>
+                    <div class="chip">Hack and Slash</div>
+                    <div class="chip">Soulslike</div>
+                    <div class="chip">Estratégia</div>
+                    <div class="chip">Simulação</div>
+
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Adicionar gênero:</label>
+
+                <div class="add-genero">
+
+                    <input
+                        type="text"
+                        id="novoGenero"
+                        placeholder="Novo gênero"
+                    >
+
+                    <button
+                        type="button"
+                        id="btnAdicionarGenero"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+            <input
+                type="hidden"
+                name="genero"
+                id="generoFinal"
+            >
+
+            <div class="input-group">
+
+                <label>Nota (0 a 5):</label>
+
+                <input
+                    type="number"
+                    min="0"
+                    max="5"
+                    step="0.1"
+                    name="nota"
+                    id="nota"
+                    placeholder="Ex: 4.8"
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Plataforma:</label>
+
+                <select id="plataformaSelect">
+
+                    <option value="PC">PC</option>
+                    <option value="PlayStation">PlayStation</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="Nintendo">Nintendo</option>
+                    <option value="Outro">Outro</option>
+
+                </select>
+
+            </div>
+
+            <div
+                class="input-group"
+                id="outraPlataformaGroup"
+                style="display: none;"
+            >
+
+                <label>Outra plataforma:</label>
+
+                <input
+                    type="text"
+                    id="outraPlataforma"
+                    placeholder="Digite a plataforma"
+                >
+
+            </div>
+
+            <input
+                type="hidden"
+                name="plataforma"
+                id="plataformaFinal"
+            >
+
+            <div class="input-group">
+
+                <label>URL da capa:</label>
+
+                <input
+                    type="text"
+                    name="capa"
+                    id="capa"
+                    placeholder="https://site.com/capa.jpg"
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Status:</label>
+
+                <select
+                    name="status_jogo"
+                    id="status_jogo"
+                >
+
+                    <option value="Jogando">
+                        Jogando
+                    </option>
+
+                    <option value="Joguei">
+                        Joguei
+                    </option>
+
+                    <option value="Backlogged">
+                        Backlogged
+                    </option>
+
+                    <option value="Wishlist">
+                        Wishlist
+                    </option>
+
+                </select>
+
+            </div>
+
             <div class="form-actions">
-                <button type="submit" class="btn-primary">Salvar</button>
+
+                <button type="submit">
+                    Salvar
+                </button>
+
                 <button
-                type="button"
-                class="btn-secondary"
-                onclick="window.location.href = '../index.html'">Voltar</button>
+                    type="button"
+                    onclick="window.location.href='../index.html'"
+                >
+                    Voltar
+                </button>
+
             </div>
+
         </form>
+
     </div>
+
     <script src="cadastrar.js"></script>
+
 </body>
 </html>
